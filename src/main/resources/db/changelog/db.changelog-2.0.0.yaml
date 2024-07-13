@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: rivosarmento
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: numeric(19, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: category
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+        - createSequence:
+            sequenceName: seq_products_id
+        - createSequence:
+            sequenceName: seq_category_id
+        - addForeignKeyConstraint:
+            baseTableName: products
+            baseColumnNames: category_id
+            constraintName: fk_products_category_id
+            referencedTableName: category
+            referencedColumnNames: id
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: id
+                  valueComputed: nextval('seq_category_id')
+              - column:
+                  name: name
+                  value: 'vehicle'
+              - column:
+                  name: description
+                  value: 'a thing used for transporting people or goods'
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: updated_at
+                  value: now()
+        - insert:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  valueComputed: nextval('seq_products_id')
+              - column:
+                  name: name
+                  value: 'car'
+              - column:
+                  name: description
+                  value: 'goes vrumm'
+              - column:
+                  name: price
+                  value: 50000.0
+              - column:
+                  name: category_id
+                  value: '1'
+              - column:
+                  name: created_at
+                  value: now()
+              - column:
+                  name: updated_at
+                  value: now()
