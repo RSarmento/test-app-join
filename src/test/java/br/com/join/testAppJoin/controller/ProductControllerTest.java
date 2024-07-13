@@ -1,9 +1,7 @@
 package br.com.join.testAppJoin.controller;
 
 import br.com.join.testAppJoin.builder.ProductBuilder;
-import br.com.join.testAppJoin.builder.ProductBuilder;
 import br.com.join.testAppJoin.entity.Product;
-import br.com.join.testAppJoin.repository.ProductRepository;
 import br.com.join.testAppJoin.repository.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +32,7 @@ class ProductControllerTest {
 
     private final String TEST_PRODUCT_1_NAME = "name 1";
     private final String TEST_PRODUCT_1_DESC = "description 1";
+    private final Double TEST_PRODUCT_1_PRIC = 10.5;
     private final String TEST_PRODUCT_2_NAME = "name 1";
     private final String TEST_PRODUCT_2_DESC = "description 1";
     private final String TEST_PRODUCT_3_NAME = "name 1";
@@ -58,6 +57,7 @@ class ProductControllerTest {
         testProduct1 = builder
                 .withName(TEST_PRODUCT_1_NAME)
                 .withDescription(TEST_PRODUCT_1_DESC)
+                .withPrice(TEST_PRODUCT_1_PRIC)
                 .build();
         testProduct2 = builder
                 .withName(TEST_PRODUCT_2_NAME)

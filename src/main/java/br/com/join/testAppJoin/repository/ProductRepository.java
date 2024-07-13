@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, CrudRepository<Product, Long> {
 
-    Page<Product> findById(Long companyId, Pageable pageable);
 
 
 }
