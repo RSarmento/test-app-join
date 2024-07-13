@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: rivosarmento
+      changes:
+        - sql:
+            sql: SELECT 'DROP table IF EXISTS "' || tablename || '" CASCADE;' FROM pg_tables;
