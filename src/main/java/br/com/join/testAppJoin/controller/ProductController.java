@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@Valid @RequestBody Product product) throws ValidationException {
+    public ResponseEntity<?> save(@Valid @RequestBody Product product) {
 
         Product newProduct = this.productRepository
                 .saveAndFlush(product);
@@ -42,8 +42,7 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody Product product)
-            throws ValidationException {
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody Product product) {
 
         return this.productRepository
                 .findById(id)

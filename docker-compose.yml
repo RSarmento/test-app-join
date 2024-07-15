@@ -1,0 +1,42 @@
+services:
+  pgsql:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_USER: join
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: join-db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - join-network
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      - 5005:5005
+    networks:
+      - join-network
+    depends_on:
+      - pgsql
+#  web:
+#    build:
+#      context: ./frontend/
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./frontend:/app
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - join-network
+#    depends_on:
+#      - api
+networks:
+  join-network:
+    driver: bridge
+volumes:
+  postgres-data:
