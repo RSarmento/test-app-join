@@ -2,7 +2,6 @@ package br.com.join.testAppJoin.controller;
 
 import br.com.join.testAppJoin.entity.Product;
 import br.com.join.testAppJoin.repository.ProductRepository;
-import br.com.join.testAppJoin.validator.ProductControllerRequestValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +17,6 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
-
-    @Autowired
-    private ProductControllerRequestValidator validator;
 
     @GetMapping
     public ResponseEntity<?> index(@Valid Pageable pageable) {
@@ -40,7 +36,6 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Product product) throws ValidationException {
 
-        validator.validateRequest(product);
         Product newProduct = this.productRepository
                 .saveAndFlush(product);
         return ResponseEntity.ok().body(newProduct);
@@ -50,7 +45,6 @@ public class ProductController {
     public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody Product product)
             throws ValidationException {
 
-        validator.validateRequest(product);
         return this.productRepository
                 .findById(id)
                 .map(p -> {

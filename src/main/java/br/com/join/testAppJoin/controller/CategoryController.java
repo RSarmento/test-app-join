@@ -2,7 +2,6 @@ package br.com.join.testAppJoin.controller;
 
 import br.com.join.testAppJoin.entity.Category;
 import br.com.join.testAppJoin.repository.CategoryRepository;
-import br.com.join.testAppJoin.validator.CategoryControllerRequestValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +18,6 @@ public class CategoryController{
 
     @Autowired
     private CategoryRepository categoryRepository;
-
-    @Autowired
-    private CategoryControllerRequestValidator validator;
 
     
     @GetMapping
@@ -41,18 +37,16 @@ public class CategoryController{
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@Valid @RequestBody Category category) throws ValidationException {
+    public ResponseEntity<?> save(@Valid @RequestBody Category category) {
 
-        validator.validateRequest(category);
         Category newCategory = this.categoryRepository
                 .save(category);
         return ResponseEntity.ok().body(newCategory);
     }
     
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody Category category) throws ValidationException {
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody Category category) {
 
-        validator.validateRequest(category);
         return this.categoryRepository
                 .findById(id)
                 .map(p -> {
